@@ -1,0 +1,35 @@
+{
+  "name": "FundFlow - Personal Finance Manager",
+  "short_name": "FundFlow",
+  "description": "Modern personal finance management application",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity", "business"],
+  "shortcuts": [
+    {
+      "name": "Add Transaction",
+      "short_name": "Add Transaction",
+      "description": "Quickly add a new transaction",
+      "url": "/transactions/new",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block sensitive paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /settings/security
+
+# Sitemap
+Sitemap: https://fundflow.app/sitemap.xml
