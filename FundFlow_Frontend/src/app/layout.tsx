@@ -1,3 +1,4 @@
+import { CommandMenu } from '@/components/command-menu'
 import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { Inter } from 'next/font/google'
@@ -94,8 +95,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}
@@ -106,6 +107,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             expand
             visibleToasts={4}
           />
+          <CommandMenu />
         </ThemeProvider>
       </body>
     </html>
