@@ -1,10 +1,17 @@
 import { CommandMenu } from '@/components/command-menu'
 import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from 'next-themes'
-import { Inter } from 'next/font/google'
+import { JetBrains_Mono, Inter } from 'next/font/google'
 import { Toaster } from 'sonner'
+import { FontProvider } from '@/components/font-provider'
 
 import '@/styles/globals.css'
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap'
+})
 
 const inter = Inter({
   subsets: ['latin'],
@@ -92,23 +99,25 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster
-            position="top-right"
-            richColors
-            closeButton
-            expand
-            visibleToasts={4}
-          />
-          <CommandMenu />
-        </ThemeProvider>
+      <body className={`${jetbrainsMono.variable} ${inter.variable} font-sans antialiased`} style={{ '--font-sans': 'var(--font-jetbrains)' } as React.CSSProperties}>
+        <FontProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster
+              position="top-right"
+              richColors
+              closeButton
+              expand
+              visibleToasts={4}
+            />
+            <CommandMenu />
+          </ThemeProvider>
+        </FontProvider>
       </body>
     </html>
   )

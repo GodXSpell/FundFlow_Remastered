@@ -12,10 +12,16 @@ import {
   Sun,
   Target,
   User,
+  LogIn,
+  UserPlus,
+  LogOut,
+  Type
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import * as React from "react"
+import { useAtom } from "jotai"
+import { isAuthenticatedAtom, fontPreferenceAtom, FontChoice } from "@/lib/store"
 
 import {
   CommandDialog,
@@ -32,6 +38,10 @@ export function CommandMenu() {
   const [open, setOpen] = React.useState(false)
   const { setTheme } = useTheme()
   const router = useRouter()
+  
+  // Connect to Jotai atomic global states
+  const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom)
+  const [fontChoice, setFontChoice] = useAtom(fontPreferenceAtom)
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -55,55 +65,84 @@ export function CommandMenu() {
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
-          <CommandItem onSelect={() => runCommand(() => router.push('/dashboard'))}>
-            <LayoutDashboard className="mr-2 h-4 w-4" />
-            <span>Dashboard</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push('/'))}>
-            <Home className="mr-2 h-4 w-4" />
-            <span>Home</span>
-          </CommandItem>
-        </CommandGroup>
+        
+        {/* =========================================
+            GUEST / UN-AUTHENTICATED ROUTES 
+            ========================================= */}
+        {!isAuthenticated && (
+          <CommandGroup heading="Navigation">
+            <CommandItem onSelect={() => runCommand(() => router.push('/'))}>
+              <Home className="mr-2 h-4 w-4" />
+              <span>Home</span>
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => {
+              setIsAuthenticated(true)
+              // router.push('/login')
+            })}>
+              <LogIn className="mr-2 h-4 w-4" />
+              <span>Login (Dev Mock)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => router.push('/signup'))}>
+              <UserPlus className="mr-2 h-4 w-4" />
+              <span>Signup</span>
+            </CommandItem>
+          </CommandGroup>
+        )}
+
+        {/* =========================================
+            AUTHENTICATED ROUTES 
+            ========================================= */}
+        {isAuthenticated && (
+          <>
+            <CommandGroup heading="Dashboard">
+              <CommandItem onSelect={() => runCommand(() => router.push('/dashboard'))}>
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                <span>Overview</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/transactions'))}>
+                <CreditCard className="mr-2 h-4 w-4" />
+                <span>Transactions</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/budgets'))}>
+                <PieChart className="mr-2 h-4 w-4" />
+                <span>Budgets</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/reports'))}>
+                <FileText className="mr-2 h-4 w-4" />
+                <span>Reports</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/savings'))}>
+                <Target className="mr-2 h-4 w-4" />
+                <span>Savings & Goals</span>
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Account">
+              <CommandItem onSelect={() => runCommand(() => router.push('/settings'))}>
+                <User className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => router.push('/settings'))}>
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => {
+                setIsAuthenticated(false)
+                router.push('/')
+              })}>
+                <LogOut className="mr-2 h-4 w-4 text-[#E67E6E] dark:text-[#9B4437]" />
+                <span className="text-[#E67E6E] dark:text-[#9B4437]">Logout</span>
+              </CommandItem>
+            </CommandGroup>
+          </>
+        )}
+
         <CommandSeparator />
-        <CommandGroup heading="Navigation">
-          <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/transactions'))}>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Transactions</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/budgets'))}>
-            <PieChart className="mr-2 h-4 w-4" />
-            <span>Budgets</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/reports'))}>
-            <FileText className="mr-2 h-4 w-4" />
-            <span>Reports</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/savings'))}>
-            <Target className="mr-2 h-4 w-4" />
-            <span>Savings & Goals</span>
-          </CommandItem>
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading="Settings">
-          <CommandItem onSelect={() => runCommand(() => router.push('/settings'))}>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-            <CommandShortcut>⌘P</CommandShortcut>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push('/billing'))}>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
-            <CommandShortcut>⌘B</CommandShortcut>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push('/settings'))}>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <CommandShortcut>⌘S</CommandShortcut>
-          </CommandItem>
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading="Theme">
+        
+        {/* =========================================
+            GLOBAL PREFERENCES 
+            ========================================= */}
+        <CommandGroup heading="Theme Preferences">
           <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
             <Sun className="mr-2 h-4 w-4" />
             <span>Light Mode</span>
@@ -117,6 +156,27 @@ export function CommandMenu() {
             <span>System Mode</span>
           </CommandItem>
         </CommandGroup>
+
+        <CommandSeparator />
+
+        <CommandGroup heading="Typography Settings">
+          <CommandItem onSelect={() => runCommand(() => setFontChoice('jetbrains'))}>
+            <Type className="mr-2 h-4 w-4" />
+            <span>Developer Code Font (JetBrains)</span>
+            {fontChoice === 'jetbrains' && <span className="ml-auto text-xs opacity-50">Active</span>}
+          </CommandItem>
+          <CommandItem onSelect={() => runCommand(() => setFontChoice('inter'))}>
+            <Type className="mr-2 h-4 w-4" />
+            <span>Modern Standard Font (Inter)</span>
+            {fontChoice === 'inter' && <span className="ml-auto text-xs opacity-50">Active</span>}
+          </CommandItem>
+          <CommandItem onSelect={() => runCommand(() => setFontChoice('sans'))}>
+            <Type className="mr-2 h-4 w-4" />
+            <span>System Browser Default (Sans-Serif)</span>
+            {fontChoice === 'sans' && <span className="ml-auto text-xs opacity-50">Active</span>}
+          </CommandItem>
+        </CommandGroup>
+
       </CommandList>
     </CommandDialog>
   )
