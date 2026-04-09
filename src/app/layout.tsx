@@ -2,7 +2,7 @@ import { CommandMenu } from '@/components/command-menu'
 import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { JetBrains_Mono, Inter } from 'next/font/google'
-import { Toaster } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 import { FontProvider } from '@/components/font-provider'
 
 import '@/styles/globals.css'

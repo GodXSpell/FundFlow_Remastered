@@ -1,7 +1,7 @@
 "use client"
 
 import { AccountSummary } from "@/components/budgets/account-summary"
-import { AddAccountDialog } from "@/components/budgets/add-account-dialog"
+import { AddBudgetDialog } from "@/components/budgets/add-budget-dialog"
 import { BudgetGroup } from "@/components/budgets/budget-group"
 import { useFundFlow } from "@/context/fund-flow-context"
 import { Home } from "lucide-react"
@@ -29,7 +29,7 @@ export default function Page() {
                         Manage your bank accounts and track your monthly spending limits.
                     </p>
                 </div>
-                <AddAccountDialog />
+                <AddBudgetDialog />
             </div>
 
             <AccountSummary />

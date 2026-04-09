@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useEffect, useState, useRef } from "react"
+import Link from "next/link"
 import { Activity, Shield, PieChart, Bell, Target, ArrowRight, Wallet, LineChart } from "lucide-react"
 
 // Simple placeholder image component
@@ -49,9 +50,11 @@ export default function RootPage() {
           </div>
 
           <div>
-            <button className="bg-[#E67E6E] dark:bg-[#9B4437] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-all duration-200">
-              Get Started
-            </button>
+            <Link href="/login">
+              <button className="bg-[#E67E6E] dark:bg-[#9B4437] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-all duration-200">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -87,9 +90,11 @@ export default function RootPage() {
               A digital sanctuary for high-net-worth management. We believe in intentional asymmetry, tonal depth, and financial calm.
             </motion.p>
             <motion.div variants={fadeIn} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <button className="bg-[#E67E6E] dark:bg-[#9B4437] text-white px-10 py-4 rounded-lg font-bold tracking-tight text-lg shadow-xl hover:opacity-90 transition-all">
-                Begin Your Journey
-              </button>
+              <Link href="/login">
+                <button className="bg-[#E67E6E] dark:bg-[#9B4437] text-white px-10 py-4 rounded-lg font-bold tracking-tight text-lg shadow-xl hover:opacity-90 transition-all">
+                  Begin Your Journey
+                </button>
+              </Link>
             </motion.div>
           </motion.div>
         </section>
@@ -416,9 +421,11 @@ export default function RootPage() {
                 Access is limited to ensure the highest standard of stewardship. If you represent a significant portfolio or legacy fund, we invite you to apply.
               </p>
               <div className="flex justify-center">
-                <button className="bg-[#E67E6E] dark:bg-[#9B4437] text-white px-12 py-5 rounded-lg font-bold text-xl hover:scale-105 transition-all shadow-xl">
-                  Request an Invitation
-                </button>
+                <Link href="/login">
+                  <button className="bg-[#E67E6E] dark:bg-[#9B4437] text-white px-12 py-5 rounded-lg font-bold text-xl hover:scale-105 transition-all shadow-xl">
+                    Request an Invitation
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>

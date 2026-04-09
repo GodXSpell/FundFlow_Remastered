@@ -47,13 +47,13 @@ export function AddTransactionDialog() {
             category: formData.get("category") as string || "Other",
             type: (formData.get("type") as "Incoming" | "Outgoing") || "Outgoing",
             mode: (formData.get("mode") as any) || "Card",
-            date: new Date().toLocaleString('en-US', { day: 'numeric', month: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).replace(',', ''), // "Dec 21 00:05" ish
+            date: new Date().toISOString(), // Use standard format so the backend parses it smoothly
             status: (formData.get("status") as any) || "Done",
             account: formData.get("account") as string || "Main Account",
             description: "Added via Dashboard",
         }
 
-        addTransaction(newTransaction)
+        await addTransaction(newTransaction)
         toast.success("Transaction added successfully")
         setLoading(false)
         setOpen(false)

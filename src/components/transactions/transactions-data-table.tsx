@@ -96,6 +96,7 @@ export const schema = z.object({
     date: z.string(),
     name: z.string(),
     amount: z.number(),
+    type: z.enum(["Incoming", "Outgoing"]),
     status: z.enum(["Done", "Pending", "Failed"]),
     account: z.string(),
     category: z.string(),
@@ -202,10 +203,10 @@ const columns: ColumnDef<Transaction>[] = [
         header: () => <div className="text-right">Amount</div>,
         cell: ({ row }) => {
             const amount = row.original.amount
-            const isIncome = amount > 0
+            const isIncome = row.original.type === "Incoming"
             return (
                 <TableCellViewer item={row.original}>
-                    <div className={`text-right font-medium cursor-pointer hover:underline decoration-muted-foreground/50 underline-offset-4 ${isIncome ? "text-green-600 dark:text-green-400" : "text-foreground"}`}>
+                    <div className={`text-right font-medium cursor-pointer hover:underline decoration-muted-foreground/50 underline-offset-4 ${isIncome ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
                         {isIncome ? "+" : ""}{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount)}
                     </div>
                 </TableCellViewer>

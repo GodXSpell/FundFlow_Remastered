@@ -1,16 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AddBudgetDialog } from "./add-budget-dialog"
 import { BudgetCard } from "./budget-card"
+import { Budget } from "@/context/fund-flow-context"
 
 interface BudgetGroupProps {
     title: string
-    budgets: {
-        name: string
-        spent: number
-        total: number
-        color?: string
-        icon?: React.ReactNode
-    }[]
+    budgets: (Budget & { icon?: React.ReactNode })[]
 }
 
 export function BudgetGroup({ title, budgets }: BudgetGroupProps) {

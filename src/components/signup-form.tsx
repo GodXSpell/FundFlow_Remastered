@@ -7,6 +7,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useSetAtom } from "jotai"
 import { isAuthenticatedAtom } from "@/lib/store"
+import { api } from "@/lib/api"
 
 import { cn } from "@/components/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -25,7 +26,7 @@ export function SignupForm({
   const setIsAuthenticated = useSetAtom(isAuthenticatedAtom)
   const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
 
@@ -39,8 +40,13 @@ export function SignupForm({
       return
     }
 
-    setIsAuthenticated(true)
-    router.push("/dashboard")
+    try {
+      const data = await api.auth.signup({ name, email, password, confirmPassword })
+      // Redirect to login page after successful signup
+      window.location.href = "/login"
+    } catch (err: any) {
+      setError(err.message || "Something went wrong")
+    }
   }
 
   return (

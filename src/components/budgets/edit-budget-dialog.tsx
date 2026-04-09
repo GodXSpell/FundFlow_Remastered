@@ -13,52 +13,48 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useFundFlow } from "@/context/fund-flow-context"
-import { PlusIcon } from "lucide-react"
+import { useFundFlow, Budget } from "@/context/fund-flow-context"
+import { EditIcon } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
 
-interface AddBudgetDialogProps {
-    defaultGroup?: string
+interface EditBudgetDialogProps {
+    budget: Budget
 }
 
-export function AddBudgetDialog({ defaultGroup }: AddBudgetDialogProps) {
-    const { addBudget } = useFundFlow()
+export function EditBudgetDialog({ budget }: EditBudgetDialogProps) {
+    const { updateBudget } = useFundFlow()
     const [open, setOpen] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
 
-        await new Promise(resolve => setTimeout(resolve, 300)) // Fake delay
-
-        await addBudget({
-            id: Math.random().toString(36).substr(2, 9),
+        await updateBudget(budget.id, {
             name: formData.get("name") as string,
-            spent: 0,
             total: parseFloat(formData.get("limit") as string) || 0,
-            color: formData.get("color") as string || "bg-blue-500",
-            group: formData.get("group") as string || defaultGroup || "Monthly Essentials",
+            color: formData.get("color") as string || budget.color,
+            group: formData.get("group") as string || budget.group,
         })
 
-        toast.success("Budget created successfully")
+        toast.success("Budget updated successfully")
         setOpen(false)
     }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="h-8">
-                    <PlusIcon className="mr-2 h-3 w-3" />
-                    Add Budget
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground mr-2">
+                    <EditIcon className="h-4 w-4" />
+                    <span className="sr-only">Edit Budget</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form onSubmit={handleSubmit}>
                     <DialogHeader>
-                        <DialogTitle>Create New Budget</DialogTitle>
+                        <DialogTitle>Edit Budget</DialogTitle>
                         <DialogDescription>
-                            Set a spending limit for a specific category.
+                            Update your spending limit and category.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -66,25 +62,25 @@ export function AddBudgetDialog({ defaultGroup }: AddBudgetDialogProps) {
                             <Label htmlFor="name" className="text-right">
                                 Name
                             </Label>
-                            <Input id="name" name="name" required placeholder="e.g., Coffee, Hobbies" className="col-span-3" />
+                            <Input id="name" name="name" required defaultValue={budget.name} placeholder="e.g., Coffee, Hobbies" className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="limit" className="text-right">
                                 Limit
                             </Label>
-                            <Input id="limit" name="limit" required type="number" placeholder="500.00" className="col-span-3" />
+                            <Input id="limit" name="limit" required type="number" defaultValue={budget.total} placeholder="500.00" className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="group" className="text-right">
                                 Group
                             </Label>
-                            <Input id="group" name="group" required defaultValue={defaultGroup || "Monthly Essentials"} className="col-span-3" />
+                            <Input id="group" name="group" required defaultValue={budget.group} className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="color" className="text-right">
                                 Color
                             </Label>
-                            <Select name="color" defaultValue="bg-blue-500">
+                            <Select name="color" defaultValue={budget.color || "bg-blue-500"}>
                                 <SelectTrigger className="col-span-3">
                                     <SelectValue placeholder="Select color" />
                                 </SelectTrigger>
@@ -100,7 +96,7 @@ export function AddBudgetDialog({ defaultGroup }: AddBudgetDialogProps) {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Create Budget</Button>
+                        <Button type="submit">Save Changes</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

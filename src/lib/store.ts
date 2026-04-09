@@ -1,8 +1,9 @@
 import { atom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 
-// Mock authentication state
-export const isAuthenticatedAtom = atom<boolean>(false)
+// Persistent authentication state
+export const isAuthenticatedAtom = atomWithStorage<boolean>('isAuthenticated', false)
 
 // Global font preference state
 export type FontChoice = 'jetbrains' | 'inter' | 'sans'
-export const fontPreferenceAtom = atom<FontChoice>('jetbrains')
+export const fontPreferenceAtom = atomWithStorage<FontChoice>('fontPreference', 'jetbrains')

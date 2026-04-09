@@ -10,6 +10,7 @@ import {
   FileIcon,
   FileTextIcon,
   HelpCircleIcon,
+  LandmarkIcon,
   LayoutDashboardIcon,
   PieChartIcon,
   SearchIcon,
@@ -43,6 +44,11 @@ const data = {
       title: "Dashboard",
       url: "/dashboard",
       icon: LayoutDashboardIcon,
+    },
+    {
+      title: "Bank Accounts",
+      url: "/dashboard/accounts",
+      icon: LandmarkIcon,
     },
     {
       title: "Transactions",

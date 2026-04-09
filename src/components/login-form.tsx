@@ -7,6 +7,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useSetAtom } from "jotai"
 import { isAuthenticatedAtom } from "@/lib/store"
+import { api } from "@/lib/api"
 
 import { cn } from "@/components/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -22,10 +23,18 @@ export function LoginForm({
   const setIsAuthenticated = useSetAtom(isAuthenticatedAtom)
   const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsAuthenticated(true)
-    router.push("/dashboard")
+    try {
+      const data = await api.auth.login({ email, password })
+      if (data && data.token) {
+        localStorage.setItem("token", data.token)
+      }
+      setIsAuthenticated(true)
+      window.location.href = "/dashboard"
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

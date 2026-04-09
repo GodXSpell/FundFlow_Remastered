@@ -5,6 +5,7 @@ import {
   CreditCard,
   FileText,
   Home,
+  Landmark,
   LayoutDashboard,
   Moon,
   PieChart,
@@ -70,7 +71,7 @@ export function CommandMenu() {
             GUEST / UN-AUTHENTICATED ROUTES 
             ========================================= */}
         {!isAuthenticated && (
-          <CommandGroup heading="Navigation">
+          <CommandGroup>
             <CommandItem onSelect={() => runCommand(() => router.push('/'))}>
               <Home className="mr-2 h-4 w-4" />
               <span>Home</span>
@@ -95,6 +96,10 @@ export function CommandMenu() {
               <CommandItem onSelect={() => runCommand(() => router.push('/dashboard'))}>
                 <LayoutDashboard className="mr-2 h-4 w-4" />
                 <span>Overview</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/accounts'))}>
+                <Landmark className="mr-2 h-4 w-4" />
+                <span>Bank Accounts</span>
               </CommandItem>
               <CommandItem onSelect={() => runCommand(() => router.push('/dashboard/transactions'))}>
                 <CreditCard className="mr-2 h-4 w-4" />
@@ -124,8 +129,9 @@ export function CommandMenu() {
                 <span>Settings</span>
               </CommandItem>
               <CommandItem onSelect={() => runCommand(() => {
+                localStorage.removeItem("token")
                 setIsAuthenticated(false)
-                router.push('/')
+                window.location.href = '/'
               })}>
                 <LogOut className="mr-2 h-4 w-4 text-[#E67E6E] dark:text-[#9B4437]" />
                 <span className="text-[#E67E6E] dark:text-[#9B4437]">Logout</span>
