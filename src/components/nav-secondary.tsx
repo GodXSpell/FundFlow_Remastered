@@ -2,6 +2,8 @@
 
 import * as React from "react"
 import { LucideIcon } from "lucide-react"
+import { useSetAtom } from "jotai"
+import { isSettingsOpenAtom } from "@/lib/store"
 
 import {
   SidebarGroup,
@@ -21,6 +23,8 @@ export function NavSecondary({
     icon: LucideIcon
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+  const setIsSettingsOpen = useSetAtom(isSettingsOpenAtom)
+
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
@@ -28,7 +32,12 @@ export function NavSecondary({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
-                <a href={item.url}>
+                <a href={item.url} onClick={(e) => {
+                  if (item.title === "Settings") {
+                    e.preventDefault()
+                    setIsSettingsOpen(true)
+                  }
+                }}>
                   <item.icon />
                   <span>{item.title}</span>
                 </a>

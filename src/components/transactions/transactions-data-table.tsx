@@ -598,7 +598,7 @@ function TableCellViewer({ item, children }: { item: Transaction, children: Reac
                     </SheetDescription>
                 </SheetHeader>
                 <div className="flex flex-1 flex-col overflow-y-auto py-4">
-                    <TransactionDetails transaction={item} />
+                    <TransactionDetails transaction={item as any} />
                 </div>
             </SheetContent>
         </Sheet>

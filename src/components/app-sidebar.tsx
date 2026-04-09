@@ -19,10 +19,10 @@ import {
 } from "lucide-react"
 import * as React from "react"
 
-import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
+import { useFundFlow } from "@/context/fund-flow-context"
 import {
   Sidebar,
   SidebarContent,
@@ -65,11 +65,13 @@ const data = {
       url: "/dashboard/reports",
       icon: FileTextIcon,
     },
+    /* To be implemented
     {
       title: "Savings & Goals",
       url: "/dashboard/savings",
       icon: TargetIcon,
     },
+    */
   ],
   navClouds: [
     {
@@ -156,6 +158,8 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useFundFlow()
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -175,11 +179,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   )

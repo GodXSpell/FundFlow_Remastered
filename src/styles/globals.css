@@ -104,6 +104,9 @@
   --accent-brand: #E67E6E;
   --muted: #E2E8F0;
   --muted-foreground: #64748B;
+  --accent: #F1F5F9;
+  --accent-foreground: #121417;
+  --popover-border: #E2E8F0;
   --card: #FFFFFF;
   --card-foreground: #121417;
   --popover: #FFFFFF;
@@ -128,6 +131,9 @@
   --accent-brand: #9B4437;
   --muted: #1E293B;
   --muted-foreground: #94A3B8;
+  --accent: #334155;
+  --accent-foreground: #F5F5F4;
+  --popover-border: #334155;
   --card: #1c1f24;
   --card-foreground: #F5F5F4;
   --popover: #1c1f24;

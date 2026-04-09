@@ -43,6 +43,8 @@ export function SignupForm({
     try {
       const data = await api.auth.signup({ name, email, password, confirmPassword })
       // Redirect to login page after successful signup
+      localStorage.setItem("fundflow_user_name", name)
+      localStorage.setItem("fundflow_user_email", email)
       window.location.href = "/login"
     } catch (err: any) {
       setError(err.message || "Something went wrong")

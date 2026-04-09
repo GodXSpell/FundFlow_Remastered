@@ -28,6 +28,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useSetAtom } from "jotai"
+import { isSettingsOpenAtom } from "@/lib/store"
+import { useRouter } from "next/navigation"
 
 export function NavUser({
   user,
@@ -39,6 +42,8 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const setIsSettingsOpen = useSetAtom(isSettingsOpenAtom)
+  const router = useRouter()
 
   return (
     <SidebarMenu>
@@ -82,13 +87,13 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setIsSettingsOpen(true)}>
                 <UserCircleIcon />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setIsSettingsOpen(true)}>
                 <CreditCardIcon />
-                Billing
+                Preferences
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <BellIcon />
@@ -96,7 +101,10 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {
+              localStorage.removeItem("token")
+              router.push("/login")
+            }}>
               <LogOutIcon />
               Log out
             </DropdownMenuItem>

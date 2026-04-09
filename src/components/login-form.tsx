@@ -29,6 +29,7 @@ export function LoginForm({
       const data = await api.auth.login({ email, password })
       if (data && data.token) {
         localStorage.setItem("token", data.token)
+        localStorage.setItem("fundflow_user_email", email)
       }
       setIsAuthenticated(true)
       window.location.href = "/dashboard"

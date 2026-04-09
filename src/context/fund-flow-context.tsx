@@ -53,13 +53,27 @@ export function FundFlowProvider({ children }: { children: React.ReactNode }) {
     const [budgets, setBudgets] = useState<Budget[]>([])
 
     const [user, setUser] = useState<UserProfile>({
-        name: "Tarunpreet Singh",
-        email: "tarun@fundflow.com",
+        name: "User",
+        email: "m@example.com",
         avatar: "/avatars/01.png",
         currency: "USD",
         notifications: true,
         theme: "system"
     })
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedName = localStorage.getItem("fundflow_user_name")
+            const savedEmail = localStorage.getItem("fundflow_user_email")
+            if (savedName || savedEmail) {
+                setUser(prev => ({
+                    ...prev,
+                    name: savedName || prev.name,
+                    email: savedEmail || prev.email
+                }))
+            }
+        }
+    }, [])
 
     const fetchAccounts = useCallback(async () => {
         try {
@@ -282,7 +296,13 @@ const targetCategory = newTx.category || "General";
     }
 
     const updateUser = (updates: Partial<UserProfile>) => {
-        setUser(prev => ({ ...prev, ...updates }))
+        setUser(prev => {
+            const next = { ...prev, ...updates }
+            if (updates.name) localStorage.setItem("fundflow_user_name", updates.name)
+            if (updates.email) localStorage.setItem("fundflow_user_email", updates.email)
+            if (updates.currency) localStorage.setItem("fundflow_user_currency", updates.currency)
+            return next
+        })
     }
 
     return (

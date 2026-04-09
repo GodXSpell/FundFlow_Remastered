@@ -46,12 +46,6 @@ function CommandDialog({
                 )}
                 data-slot="command-dialog-content"
                 overlay={false}
-                onOpenAutoFocus={(e) => {
-                    e.preventDefault();
-                }}
-                onCloseAutoFocus={(e) => {
-                    e.preventDefault();
-                }}
             >
                 <DialogHeader className="sr-only">
                     <DialogTitle asChild>

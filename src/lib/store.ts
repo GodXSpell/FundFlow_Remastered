@@ -7,3 +7,6 @@ export const isAuthenticatedAtom = atomWithStorage<boolean>('isAuthenticated', f
 // Global font preference state
 export type FontChoice = 'jetbrains' | 'inter' | 'sans'
 export const fontPreferenceAtom = atomWithStorage<FontChoice>('fontPreference', 'jetbrains')
+
+// Settings Modal state
+export const isSettingsOpenAtom = atom<boolean>(false)

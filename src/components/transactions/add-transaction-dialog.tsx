@@ -105,7 +105,10 @@ export function AddTransactionDialog() {
                                     <SelectItem value="Entertainment">Entertainment</SelectItem>
                                     <SelectItem value="Health">Health</SelectItem>
                                     <SelectItem value="Education">Education</SelectItem>
-                                    <SelectItem value="Other">Other</SelectItem>
+                                    <SelectItem value="Pay">Pay (Salary)</SelectItem>
+                                    <SelectItem value="Stocks">Stocks / Investments</SelectItem>
+                                    <SelectItem value="Other Income">Other Income</SelectItem>
+                                    <SelectItem value="Other">Other Expenses</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
