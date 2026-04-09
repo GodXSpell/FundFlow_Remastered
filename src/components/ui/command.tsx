@@ -39,15 +39,6 @@ function CommandDialog({
 }) {
     return (
         <Dialog {...props}>
-            <DialogHeader className="sr-only">
-                <DialogTitle asChild>
-                    <p>{title}</p>
-                </DialogTitle>
-                <DialogDescription asChild>
-                    <p>{description}</p>
-                </DialogDescription>
-            </DialogHeader>
-
             <DialogContent
                 className={cn(
                     "overflow-hidden p-0 max-sm:top-16 max-sm:translate-y-0",
@@ -55,7 +46,22 @@ function CommandDialog({
                 )}
                 data-slot="command-dialog-content"
                 overlay={false}
+                onOpenAutoFocus={(e) => {
+                    e.preventDefault();
+                }}
+                onCloseAutoFocus={(e) => {
+                    e.preventDefault();
+                }}
             >
+                <DialogHeader className="sr-only">
+                    <DialogTitle asChild>
+                        <p>{title}</p>
+                    </DialogTitle>
+                    <DialogDescription asChild>
+                        <p>{description}</p>
+                    </DialogDescription>
+                </DialogHeader>
+
                 <Command
                     className={cn(
                         "**:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-10",
@@ -63,6 +69,7 @@ function CommandDialog({
                         "[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
                         "[&_[cmdk-item]]:px-3 [&_[cmdk-item]]:py-2 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
                     )}
+                    loop
                 >
                     {children}
                 </Command>

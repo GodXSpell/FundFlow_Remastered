@@ -75,12 +75,9 @@ export function CommandMenu() {
               <Home className="mr-2 h-4 w-4" />
               <span>Home</span>
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => {
-              setIsAuthenticated(true)
-              // router.push('/login')
-            })}>
+            <CommandItem onSelect={() => runCommand(() => router.push('/login'))}>
               <LogIn className="mr-2 h-4 w-4" />
-              <span>Login (Dev Mock)</span>
+              <span>Login</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push('/signup'))}>
               <UserPlus className="mr-2 h-4 w-4" />
