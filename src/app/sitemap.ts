@@ -20,5 +20,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: dayjs().toISOString(),
   }));
 
-  return [...routes, ...posts, ...components];
+  return routes;
 }
