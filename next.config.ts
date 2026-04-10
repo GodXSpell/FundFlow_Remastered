@@ -2,14 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
-      },
-    },
     optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
   },
   images: {
@@ -24,12 +16,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
 };
+
+export default nextConfig;
 
 export default nextConfig;

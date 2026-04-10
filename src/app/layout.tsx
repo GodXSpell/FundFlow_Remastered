@@ -20,6 +20,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://fundflow.app'),
   title: {
     default: 'FundFlow - Personal Finance Manager',
     template: '%s | FundFlow'
@@ -98,7 +99,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={`${jetbrainsMono.variable} ${inter.variable} font-sans antialiased`} style={{ '--font-sans': 'var(--font-jetbrains)' } as React.CSSProperties}>
         <FontProvider>
           <ThemeProvider

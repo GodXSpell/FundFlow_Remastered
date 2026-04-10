@@ -1,6 +1,6 @@
 {
   "name": "fundflow",
-  "version": "0.1.0",
+  "version": "1.0.2",
   "private": true,
   "description": "Modern personal finance management application",
   "author": "FundFlow Team",
@@ -57,7 +57,7 @@
     "lucide-react": "^0.453.0",
     "matter-js": "^0.19.0",
     "motion": "^10.18.0",
-    "next": "^15.0.0",
+    "next": "^16.2.3",
     "next-themes": "^0.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
