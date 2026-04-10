@@ -5,7 +5,7 @@ import { JetBrains_Mono, Inter } from 'next/font/google'
 import { Toaster } from '@/components/ui/sonner'
 import { FontProvider } from '@/components/font-provider'
 
-import '@/styles/globals.css'
+import '../styles/globals.css'
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -107,7 +107,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
             enableSystem={false}
             disableTransitionOnChange
           >
-            {children}
+            <div className="min-h-screen bg-background">
+              <div className="relative flex min-h-screen flex-col">
+                <div className="flex-1 w-full mx-auto">
+                  <main className="relative">
+                    {children}
+                  </main>
+                </div>
+              </div>
+            </div>
             <Toaster
               position="top-right"
               richColors
