@@ -10,3 +10,6 @@ export const fontPreferenceAtom = atomWithStorage<FontChoice>('fontPreference', 
 
 // Settings Modal state
 export const isSettingsOpenAtom = atom<boolean>(false)
+
+// Command Menu state
+export const isCommandMenuOpenAtom = atom<boolean>(false)

@@ -3,7 +3,9 @@
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
-import { Activity, Shield, PieChart, Bell, Target, ArrowRight, Wallet, LineChart } from "lucide-react"
+import { useAtom } from "jotai"
+import { isCommandMenuOpenAtom } from "@/lib/store"
+import { Activity, Shield, PieChart, Bell, Target, ArrowRight, Wallet, LineChart, Search } from "lucide-react"
 
 // Simple placeholder image component
 const PlaceholderImage = ({ className = "" }) => (
@@ -32,6 +34,7 @@ const staggerContainer = {
 const words = ["budget", "goal", "paycheck", "saver", "spender", "dream"];
 export default function RootPage() {
   const [currentWord, setCurrentWord] = useState(0);
+  const [, setCommandMenuOpen] = useAtom(isCommandMenuOpenAtom);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,7 +52,14 @@ export default function RootPage() {
             Fund<span className="text-[#E67E6E] dark:text-[#9B4437]">Flow</span>
           </div>
 
-          <div>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setCommandMenuOpen(true)}
+              className="p-2 text-[#64748B] dark:text-[#94A3B8] hover:bg-[#E2E8F0] dark:hover:bg-[#1E293B] rounded-full transition-colors flex items-center justify-center cursor-pointer"
+              aria-label="Open Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
             <Link href="/login">
               <button className="bg-[#E67E6E] dark:bg-[#9B4437] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-all duration-200">
                 Get Started

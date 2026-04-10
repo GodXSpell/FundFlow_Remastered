@@ -22,7 +22,7 @@ import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import * as React from "react"
 import { useAtom } from "jotai"
-import { isAuthenticatedAtom, fontPreferenceAtom, FontChoice, isSettingsOpenAtom } from "@/lib/store"
+import { isAuthenticatedAtom, fontPreferenceAtom, FontChoice, isSettingsOpenAtom, isCommandMenuOpenAtom } from "@/lib/store"
 
 import {
   CommandDialog,
@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/command"
 
 export function CommandMenu() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useAtom(isCommandMenuOpenAtom)
   const { setTheme } = useTheme()
   const router = useRouter()
   
